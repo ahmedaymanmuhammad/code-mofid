@@ -1,6 +1,6 @@
-# codemofidapplication
+# code-mofid
 
-A new Flutter project.
+Code Mofid Mobile Application
 
 ## Getting Started
 
