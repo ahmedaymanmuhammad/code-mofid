@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
 
-class OnBoardingViews extends StatelessWidget {
+class OnBoardingViews extends StatefulWidget {
   const OnBoardingViews({super.key});
+
+  @override
+  State<OnBoardingViews> createState() => _OnBoardingViewsState();
+}
+
+class _OnBoardingViewsState extends State<OnBoardingViews> {
+  int currentIndex = 0;
+  List<String> pages = ['one', 'two', 'three'];
 
   @override
   Widget build(BuildContext context) {
@@ -9,7 +17,7 @@ class OnBoardingViews extends StatelessWidget {
       body: Stack(
         children: [
           Image.asset(
-            'assets/images/on_boarding_screen_one.jpg',
+            'assets/images/on_boarding_screen_${pages[currentIndex]}.jpg',
             fit: BoxFit.fitHeight,
             width: double.infinity,
             height: double.infinity,
@@ -22,23 +30,29 @@ class OnBoardingViews extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      OutlinedButton(
+                      currentIndex < pages.length-1
+                          ?FilledButton(
                         style: OutlinedButton.styleFrom(
+                          backgroundColor: Color(0xFFEEEEEE),
                           side: BorderSide(
-                            color: Color(0xFFEEEEEE),
+                            color: Color(0xFF000000),
                             width: 1.5,
-                          ),
+                          )
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          setState(() {
+                            currentIndex = pages.length - 1;
+                          });
+                        },
                         child: Text(
                           'Skip',
                           style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w600,
-                            color: Color(0xFFEEEEEE),
+                            color: Color(0xFF000000),
                           ),
                         ),
-                      ),
+                      ):SizedBox.shrink()
                     ],
                   ),
                   Spacer(),
@@ -66,19 +80,64 @@ class OnBoardingViews extends StatelessWidget {
                   SizedBox(height: 18),
                   Row(
                     children: [
+                      Expanded(
+                        child: currentIndex > 0
+                            ? OutlinedButton(
+                                style: OutlinedButton.styleFrom(
+                                  shape: CircleBorder(),
+                                  side: BorderSide(width: 1.5),
+                                  padding: EdgeInsets.all(15),
+                                ),
+                                onPressed: () {
+                                  setState(() {
+                                    currentIndex--;
+                                  });
+                                },
+                                child: Icon(
+                                  Icons.arrow_back_ios,
+                                  color: Color(0xFF000000),
+                                  size: 25,
+                                ),
+                              )
+                            : SizedBox.shrink(),
+                      ),
                       Spacer(),
-                      CircleAvatar(radius: 8),
-                      SizedBox(width: 10),
-                      CircleAvatar(radius: 8),
-                      SizedBox(width: 10),
-                      CircleAvatar(radius: 8),
+                      Expanded(
+                        child: Row(
+                          children: [
+                            ...List.generate(
+                              pages.length,
+                              (index) => Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 4,
+                                  vertical: 0,
+                                ),
+                                child: CircleAvatar(
+                                  radius: currentIndex == index ? 8 : 6,
+                                  backgroundColor: currentIndex == index
+                                      ? null
+                                      : Color(0xFF000000),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                       Spacer(),
-                      FloatingActionButton(
-                        shape: CircleBorder(),
-                        elevation: 0,
-                        highlightElevation: 0,
-                        onPressed: () {},
-                        child: Icon(Icons.arrow_forward_ios),
+                      Expanded(
+                        child: FloatingActionButton(
+                          shape: CircleBorder(),
+                          elevation: 0,
+                          highlightElevation: 0,
+                          onPressed: () {
+                            if (currentIndex < pages.length - 1) {
+                              setState(() {
+                                currentIndex++;
+                              });
+                            }
+                          },
+                          child: Center(child: Icon(Icons.arrow_forward_ios)),
+                        ),
                       ),
                     ],
                   ),
