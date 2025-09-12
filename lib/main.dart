@@ -4,6 +4,7 @@ import 'package:codemofidapplication/views/my_wishlist_view/my_wishlist_view.dar
 import 'package:codemofidapplication/views/signup_view/signup_view.dart';
 import 'package:flutter/material.dart';
 import 'views/add_address_view/add_address_view.dart';
+import 'views/home_view/home_view.dart';
 import 'views/introduction_view/introduction_view.dart';
 import 'views/loading_view/loading_view.dart';
 import 'views/login_view/login_view.dart';
@@ -48,7 +49,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
 
-      home: MyWishlistView(),
+      home: HomeView(),
     );
   }
 }
