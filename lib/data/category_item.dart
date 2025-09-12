@@ -2,13 +2,13 @@ import 'package:codemofidapplication/models/category_item.dart';
 import 'category_item.dart';
 
 final List<CategoryItem> categories = [
-  CategoryItem(title: "Web Development", iconPath: "assets/icons/web.png"),
+  CategoryItem(title: "Web Development", iconPath: "assets/icons/web_development.png"),
   CategoryItem(
-    title: "Mobile Application Development",
+    title: "Mobile Development",
     iconPath: "assets/icons/mobile_development.png",
   ),
   CategoryItem(
-    title: "Desktop Application Development",
+    title: "Desktop Development",
     iconPath: "assets/icons/desktop_development.png",
   ),
   CategoryItem(
